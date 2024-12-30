@@ -31,8 +31,9 @@ jobs:
               args: ['--no-sandbox', '--disable-setuid-sandbox']
             });
             const page = await browser.newPage();
-            await page.setViewport({ width: 1448, height: 1072 });
-            await page.goto(process.env.WEBPAGE_URL);
+            await page.setViewport({ height: 1448, width: 1072 });
+            await page.goto(process.env.WEBPAGE_URL, { waitUntil: 'networkidle2' });
+            await page.waitForSelector('body');
             await page.screenshot({ path: 'wallpaper.png' });
             await browser.close();
           })();
